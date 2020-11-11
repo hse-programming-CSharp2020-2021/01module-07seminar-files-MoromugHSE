@@ -72,7 +72,7 @@ namespace _01_07_Files
                 }
                 sb.Append(el.ToString());
             }
-            File.WriteAllText(path, sb.ToString());
+            File.WriteAllText(path, sb.ToString().ToLower());
         }
 
         // you do not need to fill your file, you can work with console input
