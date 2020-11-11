@@ -46,6 +46,17 @@ namespace Task02
             }
             return true;
         }
+
+        private static int MyLog(int x)
+        {
+            int log = 0;
+            while (x > 1)
+            {
+                ++log;
+                x >>= 1;
+            }
+            return log;
+        }
         
         static int[] ConvertArray(int[] array)
         {
@@ -53,7 +64,7 @@ namespace Task02
             int[] newArr = new int[array.Length];
             for (int i = 0; i < array.Length; ++i)
             {
-                int log = Math.ILogB(array[i]);
+                int log = MyLog(array[i]);
                 newArr[i] = 1 << log;
                 if (newArr[i] == array[i])
                 {
