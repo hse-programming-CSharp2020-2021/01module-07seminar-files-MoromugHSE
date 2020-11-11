@@ -91,7 +91,7 @@ namespace _01_07_Files
                 if (!CheckArray(A))
                 // TODO: implement this case
                 {
-                    throw new Exception();
+                    throw new ArgumentOutOfRangeException();
                 }
                 
                 L = IntToBoolArray(A);

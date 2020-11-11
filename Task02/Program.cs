@@ -1,6 +1,6 @@
 ﻿using System;
 using System.IO;
-
+using System.Text;
 /*
  * По массиву A целых чисел со значениями из диапазона (1; 10000] создать массив целых чисел B,
  * в котором на каждой позиции стоит ближайшая степень двойки меньшая значения из массива A у той же позиции.
@@ -25,21 +25,58 @@ namespace Task02
         static int[] ReadFile(string path)
         {
             // TODO: implement this method
+            string[] unparsed = File.ReadAllText(path).Split();
+            int[] parsed = new int[unparsed.Length];
+            for (int i = 0; i < parsed.Length; ++i)
+            {
+                parsed[i] = int.Parse(unparsed[i]);
+            }
+            return parsed;
         }
         
         static bool CheckArray(int[] array)
         {
             // TODO: implement this method
+            foreach(var el in array)
+            {
+                if (el <= 1 || el > 10 * 1000)
+                {
+                    return false;
+                }
+            }
+            return true;
         }
         
         static int[] ConvertArray(int[] array)
         {
             // TODO: implement this method
+            int[] newArr = new int[array.Length];
+            for (int i = 0; i < array.Length; ++i)
+            {
+                double log = Math.Log2(array[i]);
+                int lowerLog = (int)log;
+                if (Math.Abs(log - lowerLog) < 1e-8)
+                {
+                    --lowerLog;
+                }
+                newArr[i] = 1 << lowerLog;
+            }
+            return newArr;
         }
 
         static void WriteFile(string path, int[] array)
         {
             // TODO: implement this method
+            StringBuilder sb = new StringBuilder();
+            foreach (var el in array)
+            {
+                if (sb.ToString() != "")
+                {
+                    sb.Append(" ");
+                }
+                sb.Append(el.ToString());
+            }
+            File.WriteAllText(path, sb.ToString().ToLower());
         }
 
         // you do not need to fill your file manually, you can work with console input
@@ -56,12 +93,20 @@ namespace Task02
                 A = ReadFile(inputPath);
                 
                 if (!CheckArray(A))
-                    // TODO: implement this case
+                // TODO: implement this case
+                {
+                    throw new ArgumentOutOfRangeException();
+                }
                 
                 B = ConvertArray(A);
                 WriteFile(outputPath, B);
             }
             // TODO: catch with meaningful message
+            catch (Exception)
+            {
+                Console.WriteLine("Incorrect Input");
+                return;
+            }
             
             // do not touch
             ConsoleOutput();
