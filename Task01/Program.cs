@@ -101,6 +101,7 @@ namespace _01_07_Files
             catch (Exception)
             {
                 Console.WriteLine("Incorrect Input");
+                return;
             }
             
             // do not touch
