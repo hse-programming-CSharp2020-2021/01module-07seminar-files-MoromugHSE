@@ -53,13 +53,12 @@ namespace Task02
             int[] newArr = new int[array.Length];
             for (int i = 0; i < array.Length; ++i)
             {
-                double log = Math.Log2(array[i]);
-                int lowerLog = (int)log;
-                if (Math.Abs(log - lowerLog) < 1e-8)
+                int log = Math.ILogB(array[i]);
+                newArr[i] = 1 << log;
+                if (newArr[i] == array[i])
                 {
-                    --lowerLog;
+                    newArr[i] >>= 1;
                 }
-                newArr[i] = 1 << lowerLog;
             }
             return newArr;
         }
